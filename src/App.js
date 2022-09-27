@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import "./App.css";
+import axios from "axios";
+import CryptoTable from "./components/table";
+import Hero from "./components/hero";
+import NavScrollExample from "./components/navbar";
 
 function App() {
+  const [coins, setCoins] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(
+        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
+      )
+      .then((response) => {
+        setCoins(response.data);
+        console.log(coins);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavScrollExample />
+      <Hero />
+      <CryptoTable coins={coins} />
     </div>
   );
 }
