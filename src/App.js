@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
+import CryptoChart from "./components/chart";
 import CryptoTable from "./components/table";
-import Hero from "./components/hero";
-import NavScrollExample from "./components/navbar";
+import NavigationBar from "./components/navbar";
 
 function App() {
   const [coins, setCoins] = useState([]);
@@ -25,8 +25,8 @@ function App() {
 
   return (
     <div className="App">
-      <NavScrollExample />
-      <Hero />
+      <NavigationBar />
+      <CryptoChart />
       <CryptoTable coins={coins} />
     </div>
   );

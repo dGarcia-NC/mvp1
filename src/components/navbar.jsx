@@ -1,11 +1,34 @@
+import { useState, useContext } from "react";
+import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { HistoricalContext } from "../context/historical.context";
 
-const NavScrollExample = () => {
+const NavigationBar = () => {
+  const { setCoin, setCoinData } = useContext(HistoricalContext);
+  const [search, setSearch] = useState("");
+
+  const handleClick = () => {
+    if (search !== "") {
+      axios
+        .get(
+          `${process.env.REACT_APP_BASE_URI}coins/${search}/market_chart?vs_currency=usd&days=1`
+        )
+        .then((response) => {
+          setCoin(search);
+          setCoinData(response.data);
+          setSearch("");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container fluid>
@@ -39,8 +62,12 @@ const NavScrollExample = () => {
               placeholder="Search"
               className="me-2"
               aria-label="Search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
             />
-            <Button variant="primary">Search</Button>{" "}
+            <Button variant="primary" onClick={handleClick}>
+              Search
+            </Button>{" "}
           </Form>
         </Navbar.Collapse>
       </Container>
@@ -48,4 +75,4 @@ const NavScrollExample = () => {
   );
 };
 
-export default NavScrollExample;
+export default NavigationBar;
