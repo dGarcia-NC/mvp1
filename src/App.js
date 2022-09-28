@@ -4,9 +4,12 @@ import axios from "axios";
 import CryptoChart from "./components/chart";
 import CryptoTable from "./components/table";
 import NavigationBar from "./components/navbar";
+import NewsCard from "./components/card";
+import styles from "./styles/Card.module.css";
 
 function App() {
   const [coins, setCoins] = useState([]);
+  const [news, setNews] = useState([]);
 
   useEffect(() => {
     axios
@@ -19,6 +22,15 @@ function App() {
       .catch((error) => {
         console.log(error);
       });
+
+    axios
+      .get(
+        "https://newsapi.org/v2/everything?q=Bitcoin&from=2022-09-28&sortBy=popularity&apiKey=2470c35134b94d4391f6b0a195fab4a2"
+      )
+      .then((response) => {
+        setNews(response.data.articles);
+      })
+      .catch((error) => console.log(error));
     // eslint-disable-next-line
   }, []);
 
@@ -27,6 +39,17 @@ function App() {
       <NavigationBar />
       <CryptoChart />
       <CryptoTable coins={coins} />
+      <div className="card-container">
+        {news.length > 0 ? (
+          news.map((data, index) => {
+            if (index < 8) {
+              return <NewsCard key={index} news={data} />;
+            }
+          })
+        ) : (
+          <></>
+        )}
+      </div>
     </div>
   );
 }

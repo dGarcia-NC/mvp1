@@ -9,7 +9,7 @@ const CryptoChart = () => {
 
   useEffect(() => {
     if (coinData.prices) {
-      var prices = coinData.prices.map((price) => price[1].toFixed(2));
+      var prices = coinData.prices.map((price) => price[1].toFixed(5));
       var dat = coinData.prices.map(
         (date) => new Date(date[0]).toString().split(" GMT")[0]
       );
@@ -29,6 +29,7 @@ const CryptoChart = () => {
       chart: {
         height: 350,
         type: "line",
+        stacked: false,
         zoom: {
           enabled: false,
         },
@@ -40,7 +41,7 @@ const CryptoChart = () => {
         curve: "straight",
       },
       title: {
-        text: "Product Trends by Month",
+        text: "Price Chart",
         align: "left",
       },
       grid: {

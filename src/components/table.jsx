@@ -15,22 +15,24 @@ const CryptoTable = ({ coins }) => {
       </thead>
       <tbody>
         {coins.map((coin, index) => {
-          return (
-            <tr key={index + 1}>
-              <td>{index + 1}</td>
-              <td>
-                {" "}
-                <img
-                  className={styles.tableStyles}
-                  src={coin.image}
-                  alt={coin.name}
-                />
-              </td>
-              <td>{coin.id}</td>
-              <td>{coin.symbol}</td>
-              <td>{coin.current_price}</td>
-            </tr>
-          );
+          if (index < 10) {
+            return (
+              <tr key={index + 1}>
+                <td>{index + 1}</td>
+                <td>
+                  {" "}
+                  <img
+                    className={styles.tableStyles}
+                    src={coin.image}
+                    alt={coin.name}
+                  />
+                </td>
+                <td>{coin.id}</td>
+                <td>{coin.symbol}</td>
+                <td>{coin.current_price}</td>
+              </tr>
+            );
+          }
         })}
       </tbody>
     </Table>
