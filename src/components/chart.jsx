@@ -10,14 +10,14 @@ const CryptoChart = () => {
   useEffect(() => {
     if (coinData.prices) {
       var prices = coinData.prices.map((price) => price[1].toFixed(2));
-      var dat = coinData.prices.map((date) => date[0]);
+      var dat = coinData.prices.map(
+        (date) => new Date(date[0]).toString().split(" GMT")[0]
+      );
       setPrices([...prices]);
       setYDates([...dat]);
     }
   }, [coinData]);
 
-  console.log("coinData:", coinData);
-  console.log("price:", price);
   var data = {
     series: [
       {

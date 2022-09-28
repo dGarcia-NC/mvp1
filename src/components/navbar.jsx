@@ -64,6 +64,7 @@ const NavigationBar = () => {
               aria-label="Search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+              // onKeyUp={handleClick}
             />
             <Button variant="primary" onClick={handleClick}>
               Search

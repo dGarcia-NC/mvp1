@@ -15,7 +15,6 @@ function App() {
       )
       .then((response) => {
         setCoins(response.data);
-        console.log(coins);
       })
       .catch((error) => {
         console.log(error);
