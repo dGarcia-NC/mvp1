@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "./App.css";
 import axios from "axios";
 import CryptoChart from "./components/chart";
 import CryptoTable from "./components/table";
 import NavigationBar from "./components/navbar";
 import NewsCard from "./components/card";
+import { HistoricalContext } from "./context/historical.context";
 
 function App() {
+  const { coin } = useContext(HistoricalContext);
   const [coins, setCoins] = useState([]);
   const [news, setNews] = useState([]);
 
@@ -25,14 +27,14 @@ function App() {
 
     axios
       .get(
-        "https://newsapi.org/v2/everything?q=Bitcoin&from=2022-09-28&sortBy=popularity&apiKey=2470c35134b94d4391f6b0a195fab4a2"
+        `https://newsapi.org/v2/everything?q=${coin}&from=2022-09-28&sortBy=popularity&apiKey=2470c35134b94d4391f6b0a195fab4a2`
       )
       .then((response) => {
         setNews(response.data.articles);
       })
       .catch((error) => console.log(error));
     // eslint-disable-next-line
-  }, []);
+  }, [coin]);
 
   return (
     <div className="App">
