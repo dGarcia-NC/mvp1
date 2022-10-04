@@ -1,7 +1,20 @@
 import Table from "react-bootstrap/Table";
 import styles from "../styles/Table.module.css";
+import axios from "axios";
 
 const CryptoTable = ({ coins }) => {
+  const handleClick = (index, coin) => {
+    console.log(index, "clicked", coin);
+    axios
+      .post(`http://localhost:3001/${index}/${coin.name}/1`)
+      .then((response) => {
+        console.log("POST", response);
+        axios.get("http://localhost:3001/").then((response) => {
+          console.log("response:", response.data);
+        });
+      });
+  };
+
   return (
     <Table size="lg" striped bordered hover variant="dark">
       <thead>
@@ -17,7 +30,7 @@ const CryptoTable = ({ coins }) => {
         {coins.map((coin, index) => {
           if (index < 10) {
             return (
-              <tr key={index + 1}>
+              <tr key={index + 1} onClick={(e) => handleClick(index, coin)}>
                 <td>{index + 1}</td>
                 <td>
                   {" "}

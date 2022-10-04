@@ -9,7 +9,9 @@ const NewsCard = ({ news }) => {
       <Card.Body>
         <Card.Title>{news.title}</Card.Title>
         <Card.Text>{news.description}</Card.Text>
-        <Button variant="primary">{news.source.name}</Button>
+        <Button variant="primary" href={news.url}>
+          {news.source.name}
+        </Button>
       </Card.Body>
     </Card>
   );

@@ -3,6 +3,6 @@ const router = require("express").Router();
 
 router.get("/", controller.coins.listCoins);
 
-router.put("/:coin_id", controller.coins.updateCoins);
+router.post("/:id/:coinName/:favorite", controller.coins.updateCoins);
 
 module.exports = router;

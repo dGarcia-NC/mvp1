@@ -14,7 +14,9 @@ module.exports = {
   },
   updateCoins: (req, res) => {
     console.log("CONTROLLER updateCoins");
-    Crypto.coins.updateCoins((err, results) => {
+    console.log("params:", req.params);
+    var params = Object.values(req.params);
+    Crypto.coins.updateCoins((params, err, results) => {
       if (err) {
         res.status(500);
       } else {

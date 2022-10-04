@@ -7,8 +7,9 @@ module.exports = {
     return client.query(getCoins, params);
   },
   updateCoins: (params) => {
-    console.log("MODELS inside update coins");
-    var putCoins = `select * from coins`;
+    console.log("MODELS inside update coins", params);
+    var putCoins = `INSERT INTO coins (id, coinName, favorite)
+VALUES (?, ?, ?);`;
     return client.query(putCoins, params);
   },
 };
